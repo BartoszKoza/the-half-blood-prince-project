@@ -1,13 +1,11 @@
+import NavigationBar from "./components/Navigation";
 
-
-
-function App() {
+export const App = () => {
   return (
-<div>
-Cześć! Zaczynamy!
-
-</div>
+    <>
+      <NavigationBar />
+    </>
   );
-}
+};
 
 export default App;

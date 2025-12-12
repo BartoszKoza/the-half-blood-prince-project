@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   
     margin: auto;
     background-color: #eee;
-    font-family: sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 `
 

@@ -1,18 +1,34 @@
 import { useRef } from "react";
-import { Input, Navigation, NavigationItem, NavigationTitle, NavigationWrapper } from "./styled";
-
+import {
+  Navigation,
+  Container,
+  Header,
+  Title,
+  Menu,
+  MenuItem,
+  SearchInput,
+} from "./styled";
 
 const NavigationBar = () => {
   const inputRef = useRef();
+
   return (
     <Navigation>
-      
-      <NavigationWrapper>
-        <NavigationTitle>Movie Browser</NavigationTitle>
-        <NavigationItem>MOVIES</NavigationItem>
-        <NavigationItem>PEOPLE</NavigationItem>
-        <Input ref={inputRef} type="text" placeholder="Search for movies..." />
-      </NavigationWrapper>
+      <Container>
+        <Header>
+          <Title>Movie Browser</Title>
+          <Menu>
+            <MenuItem>MOVIES</MenuItem>
+            <MenuItem>PEOPLE</MenuItem>
+          </Menu>
+        </Header>
+
+        <SearchInput
+          ref={inputRef}
+          type="text"
+          placeholder="Search for movies..."
+        />
+      </Container>
     </Navigation>
   );
 };

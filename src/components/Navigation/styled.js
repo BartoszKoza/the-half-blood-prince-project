@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {ReactComponent as SearchIconSvg} from '../../search-icon.svg'
-
+import {ReactComponent as VideoIconSvg} from '../../Video.svg'
 export const Navigation = styled.nav`
   background-color: #18181b;
   color: white;
@@ -96,4 +96,25 @@ margin-left: auto;
   margin-left: 0;
   width: 100%;
 }
+`;
+
+
+export const Brand = styled.div`
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ cursor: pointer;
+ @media (max-width: 768px){
+  gap:7px;
+ }
+`;
+
+export const VideoIcon = styled(VideoIconSvg)`
+width: 40px;
+height: 40px;
+@media (max-width: 768px){
+  width: 17px;
+  height: 17px;
+}
+
 `;

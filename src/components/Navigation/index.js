@@ -9,8 +9,9 @@ import {
   SearchInput,
   SearchIcon,
   SearchWrapper,
+  Brand,
+  VideoIcon,
 } from "./styled";
-
 
 const NavigationBar = () => {
   const inputRef = useRef();
@@ -19,14 +20,17 @@ const NavigationBar = () => {
     <Navigation>
       <Container>
         <Header>
-          <Title>Movie Browser</Title>
+          <Brand>
+            <VideoIcon/>
+            <Title>Movie Browser</Title>
+          </Brand>
           <Menu>
             <MenuItem>MOVIES</MenuItem>
             <MenuItem>PEOPLE</MenuItem>
           </Menu>
         </Header>
         <SearchWrapper>
-          <SearchIcon/>
+          <SearchIcon />
           <SearchInput
             ref={inputRef}
             type="text"

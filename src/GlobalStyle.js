@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: #eee;
     font-family: "Poppins", sans-serif;
   }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 `
 
 export default GlobalStyle;

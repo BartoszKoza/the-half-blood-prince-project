@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {ReactComponent as SearchIconSvg} from '../../search-icon.svg'
 
 export const Navigation = styled.nav`
   background-color: #18181b;
@@ -69,9 +70,30 @@ export const SearchInput = styled.input`
   width: 432px;
   height: 48px;
   border-radius: 33px;
+  padding-left: 48px;
 
   @media (max-width: 768px) {
     margin-left: 0;
     width: 100%;
   }
+`;
+
+export const SearchIcon = styled(SearchIconSvg)`
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+`;
+
+export const SearchWrapper = styled.div`
+position: relative;
+margin-left: auto;
+
+@media (max-width: 768px){
+  margin-left: 0;
+  width: 100%;
+}
 `;

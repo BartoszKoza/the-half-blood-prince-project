@@ -26,6 +26,10 @@ export const Header = styled.div`
   align-items: center;
   gap: 16px;
   width: 100%;
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 `;
 
 export const Title = styled.h1`
@@ -53,6 +57,11 @@ export const MenuItem = styled.li`
   border-radius: 24px;
   cursor: pointer;
   font-size: 14px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 29px;
+  }
 `;
 
 export const SearchInput = styled.input`

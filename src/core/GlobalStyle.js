@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Poppins", sans-serif;
     color: ${({ theme }) => theme.color.black};
   }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 `
 
 export default GlobalStyle;

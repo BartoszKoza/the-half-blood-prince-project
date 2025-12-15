@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { ReactComponent as SearchIconSvg } from "../../images/search-icon.svg";
+import { ReactComponent as VideoLogoSvg } from "../../images/Video.svg";
 
 export const Navigation = styled.nav`
   background-color: ${({ theme }) => theme.color.woodsmoke};
@@ -26,7 +28,7 @@ export const Header = styled.div`
   align-items: center;
   gap: 16px;
   width: 100%;
-  
+
   @media (max-width: 768px) {
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -67,12 +69,47 @@ export const MenuItem = styled.li`
 `;
 
 export const SearchInput = styled.input`
-  margin-left: auto;
-  width: 432px;
+  width: 100%;
   height: 48px;
   border-radius: 33px;
+  padding-left: 48px;
+`;
+
+export const SearchWrapper = styled.div`
+  position: relative;
+  width: 432px;
+  margin-left: auto;
+
   @media (max-width: 768px) {
-    margin-left: 0;
     width: 100%;
+    margin-left: 0;
+  }
+`;
+
+export const SearchIcon = styled(SearchIconSvg)`
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+`;
+
+export const VideoIcon = styled(VideoLogoSvg)`
+  width: 40px;
+  height: 40px;
+  @media (max-width: 768px) {
+    width: 17px;
+    height: 17px;
+  }
+`;
+
+export const Brand = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  @media (max-width: 768px) {
+    gap: 7px;
   }
 `;

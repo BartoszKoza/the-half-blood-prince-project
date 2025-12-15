@@ -7,6 +7,10 @@ import {
   Menu,
   MenuItem,
   SearchInput,
+  SearchWrapper,
+  SearchIcon,
+  VideoIcon,
+  Brand,
 } from "./styled";
 
 const NavigationBar = ({ query, setQuery, onSearch }) => {
@@ -24,21 +28,28 @@ const NavigationBar = ({ query, setQuery, onSearch }) => {
     <Nav>
       <Container>
         <Header>
+          <Brand>
+          <VideoIcon/>
           <Title>Movie Browser</Title>
+          </Brand>
+          
           <Menu>
             <MenuItem>MOVIES</MenuItem>
             <MenuItem>PEOPLE</MenuItem>
           </Menu>
         </Header>
 
-        <form onSubmit={handleSubmit} style={{ marginLeft: "auto" }}>
-          <SearchInput
-            ref={inputRef}
-            type="text"
-            placeholder="Search for movies..."
-            value={query || ""}
-            onChange={handleInputChange}
-          />
+        <form onSubmit={handleSubmit} >
+          <SearchWrapper>
+            <SearchIcon/>
+            <SearchInput
+              ref={inputRef}
+              type="text"
+              placeholder="Search for movies..."
+              value={query || ""}
+              onChange={handleInputChange}
+            />
+          </SearchWrapper>
         </form>
       </Container>
     </Nav>

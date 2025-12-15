@@ -12,6 +12,7 @@ export const theme = {
     haiti: "#200E32",
     woodsmoke: "#18181B",
     black: "#000000",
+    blackpearl: "#03121F",
     candlelight: "#FCD420",
     sceniceblue: "#0044CC",
   },

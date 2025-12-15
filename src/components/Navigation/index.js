@@ -1,44 +1,47 @@
 import { useRef } from "react";
 import {
-  Navigation,
+  Navigation as Nav,
   Container,
   Header,
   Title,
   Menu,
   MenuItem,
   SearchInput,
-  SearchIcon,
-  SearchWrapper,
-  Brand,
-  VideoIcon,
 } from "./styled";
 
-const NavigationBar = () => {
+const NavigationBar = ({ query, setQuery, onSearch }) => {
   const inputRef = useRef();
 
+  const handleInputChange = (e) => {
+    if (setQuery) setQuery(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    if (onSearch) onSearch(e);
+  };
+
   return (
-    <Navigation>
+    <Nav>
       <Container>
         <Header>
-          <Brand>
-            <VideoIcon/>
-            <Title>Movie Browser</Title>
-          </Brand>
+          <Title>Movie Browser</Title>
           <Menu>
             <MenuItem>MOVIES</MenuItem>
             <MenuItem>PEOPLE</MenuItem>
           </Menu>
         </Header>
-        <SearchWrapper>
-          <SearchIcon />
+
+        <form onSubmit={handleSubmit} style={{ marginLeft: "auto" }}>
           <SearchInput
             ref={inputRef}
             type="text"
             placeholder="Search for movies..."
+            value={query || ""}
+            onChange={handleInputChange}
           />
-        </SearchWrapper>
+        </form>
       </Container>
-    </Navigation>
+    </Nav>
   );
 };
 

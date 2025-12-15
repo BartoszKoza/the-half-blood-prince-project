@@ -15,8 +15,9 @@ const GlobalStyle = createGlobalStyle`
   body {
   
     margin: auto;
-    background-color: #eee;
+    background-color: ${({ theme }) => theme.color.whisper};
     font-family: "Poppins", sans-serif;
+    color: ${({ theme }) => theme.color.black};
   }
   ul {
     margin: 0;

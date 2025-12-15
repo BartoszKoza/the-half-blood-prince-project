@@ -1,11 +1,11 @@
 import NavigationBar from "./components/Navigation";
+import MovieList from "./features/MovieList";
 
-export const App = () => {
+export default function App() {
   return (
     <>
       <NavigationBar />
+      <MovieList />
     </>
   );
-};
-
-export default App;
+}

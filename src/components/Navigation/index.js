@@ -1,19 +1,47 @@
 import { useRef } from "react";
-import { Input, Navigation, NavigationItem, NavigationTitle, NavigationWrapper } from "./styled";
+import {
+  Navigation as Nav,
+  Container,
+  Header,
+  Title,
+  Menu,
+  MenuItem,
+  SearchInput,
+} from "./styled";
 
-
-const NavigationBar = () => {
+const NavigationBar = ({ query, setQuery, onSearch }) => {
   const inputRef = useRef();
+
+  const handleInputChange = (e) => {
+    if (setQuery) setQuery(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    if (onSearch) onSearch(e);
+  };
+
   return (
-    <Navigation>
-      
-      <NavigationWrapper>
-        <NavigationTitle>Movie Browser</NavigationTitle>
-        <NavigationItem>MOVIES</NavigationItem>
-        <NavigationItem>PEOPLE</NavigationItem>
-        <Input ref={inputRef} type="text" placeholder="Search for movies..." />
-      </NavigationWrapper>
-    </Navigation>
+    <Nav>
+      <Container>
+        <Header>
+          <Title>Movie Browser</Title>
+          <Menu>
+            <MenuItem>MOVIES</MenuItem>
+            <MenuItem>PEOPLE</MenuItem>
+          </Menu>
+        </Header>
+
+        <form onSubmit={handleSubmit} style={{ marginLeft: "auto" }}>
+          <SearchInput
+            ref={inputRef}
+            type="text"
+            placeholder="Search for movies..."
+            value={query || ""}
+            onChange={handleInputChange}
+          />
+        </form>
+      </Container>
+    </Nav>
   );
 };
 

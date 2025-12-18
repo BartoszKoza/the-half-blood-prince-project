@@ -10,7 +10,7 @@ export const Navigation = styled.nav`
 `;
 
 export const Container = styled.div`
-  max-width: 1368px;
+  max-width: 1160px;
   width: 100%;
   padding: 16px;
   display: flex;
@@ -55,7 +55,7 @@ export const Menu = styled.ul`
 `;
 
 export const MenuItem = styled.li`
-  padding: 6px 16px;
+  padding: 12px 24px;
   border: 1px solid ${({ theme }) => theme.color.white};
   border-radius: 24px;
   cursor: pointer;
@@ -72,7 +72,12 @@ export const SearchInput = styled.input`
   width: 100%;
   height: 48px;
   border-radius: 33px;
-  padding-left: 48px;
+  padding-left: 64px;
+  font-size: 16px;
+  @media (max-width: 768px) {
+    font-size: 13px;
+    padding-left: 40px;
+  }
 `;
 
 export const SearchWrapper = styled.div`
@@ -88,11 +93,16 @@ export const SearchWrapper = styled.div`
 
 export const SearchIcon = styled(SearchIconSvg)`
   position: absolute;
-  left: 16px;
+  left: 26px;
   top: 50%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  @media (max-width: 768px) {
+    width: 16px;
+    height: 16px;
+    left: 16px;
+  }
 `;
 
 export const VideoIcon = styled(VideoLogoSvg)`

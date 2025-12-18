@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
   Navigation as Nav,
   Container,
@@ -12,7 +11,7 @@ import {
   VideoIcon,
   Brand,
 } from "./styled";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, NavLink } from "react-router-dom";
 
 const NavigationBar = () => {
   const history = useHistory();
@@ -46,7 +45,12 @@ const NavigationBar = () => {
           </Brand>
 
           <Menu>
-            <MenuItem>MOVIES</MenuItem>
+            <MenuItem 
+              as={NavLink} 
+              to="/movies" 
+              exact activeClassName="active">
+              MOVIES
+            </MenuItem>
             <MenuItem>PEOPLE</MenuItem>
           </Menu>
         </Header>

@@ -56,10 +56,15 @@ export const Menu = styled.ul`
 
 export const MenuItem = styled.li`
   padding: 12px 24px;
-  border: 1px solid ${({ theme }) => theme.color.white};
-  border-radius: 24px;
+  color: ${({ theme }) => theme.color.white};
+  text-decoration: none;
   cursor: pointer;
   font-size: 14px;
+   
+  &.active {
+    border-radius: 24px;
+    border: 1px solid ${({ theme }) => theme.color.white};
+  }
 
   @media (max-width: 768px) {
     font-size: 12px;

@@ -1,14 +1,11 @@
 const API_KEY = "64ac986c586016d0646be000556db945";
 const BASE_URL = "https://api.themoviedb.org/3";
 
-/**
- * Uniwersalny fetcher
- */
+//Uniwersalny fetcher
+
 const fetchFromAPI = async (endpoint) => {
   try {
-    const response = await fetch(
-      `${BASE_URL}${endpoint}&api_key=${API_KEY}`
-    );
+    const response = await fetch(`${BASE_URL}${endpoint}&api_key=${API_KEY}`);
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -21,19 +18,14 @@ const fetchFromAPI = async (endpoint) => {
   }
 };
 
-/* =========================
-   MOVIES
-   ========================= */
+//MOVIES
 
 export const getPopularMovies = (page = 1) =>
   fetchFromAPI(`/movie/popular?page=${page}&`);
 
-export const getMovieDetails = (movieId) =>
-  fetchFromAPI(`/movie/${movieId}?`);
+export const getMovieDetails = (movieId) => fetchFromAPI(`/movie/${movieId}?`);
 
-/* =========================
-   PEOPLE
-   ========================= */
+//PEOPLE
 
 export const getPopularPeople = (page = 1) =>
   fetchFromAPI(`/person/popular?page=${page}&`);
@@ -41,9 +33,7 @@ export const getPopularPeople = (page = 1) =>
 export const getPersonDetails = (personId) =>
   fetchFromAPI(`/person/${personId}?`);
 
-/* =========================
-   SEARCH
-   ========================= */
+//SEARCH
 
 export const searchMovies = (query, page = 1) =>
   fetchFromAPI(
@@ -55,9 +45,6 @@ export const searchPeople = (query, page = 1) =>
     `/search/person?query=${encodeURIComponent(query)}&page=${page}&`
   );
 
-/* =========================
-   GENRES
-   ========================= */
+//GENRES
 
-export const getGenres = () =>
-  fetchFromAPI(`/genre/movie/list?`);
+export const getGenres = () => fetchFromAPI(`/genre/movie/list?`);

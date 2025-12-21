@@ -66,13 +66,13 @@ export default function MovieList() {
             <Tile key={movie.id} movie={movie} genreMap={genreMap} />
           ))}
         </MoviesGrid>
-      </Content>
 
-      <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
-      />
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
+      </Content>
     </Page>
   );
 }

@@ -2,7 +2,7 @@
   "name": "movie-browser",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://the-half-blood-prince-project.github.io/movie-browser/",
+  "homepage": "https://bartoszkoza.github.io/the-half-blood-prince-project/",
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.1",
     "@testing-library/dom": "^10.4.1",

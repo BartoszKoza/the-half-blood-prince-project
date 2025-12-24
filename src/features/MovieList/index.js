@@ -1,28 +1,41 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Tile from "../../components/Tile";
-import { getPopularMovies, getGenres } from "../../core/api";
+import { getPopularMovies, getGenres, searchMovies } from "../../core/api";
 import { Page, MoviesGrid, SectionTitle } from "./styled";
 import { Pagination } from "../../components/Pagination";
+import {useLocation, useNavigate } from "react-router-dom";
 
 const MOVIES_PER_PAGE = 8;
 const API_PAGE_SIZE = 20;
 
 export default function MovieList() {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  const params = new URLSearchParams(location.search);
+  const searchQuery = params.get("search");
+  const urlPage = Number(params.get("page")) || 1;
+  
   const [movies, setMovies] = useState([]);
   const [genreMap, setGenreMap] = useState({});
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(urlPage);
   const [totalPages, setTotalPages] = useState(1);
 
+  
+
   useEffect(() => {
-    loadData(page);
-  }, [page]);
+    setPage(urlPage);
+  }, [urlPage]);
 
-  const loadData = async (uiPage) => {
-    const apiPage = Math.ceil(
-      (uiPage * MOVIES_PER_PAGE) / API_PAGE_SIZE
-    );
 
-    const moviesData = await getPopularMovies(apiPage);
+  const loadData = useCallback(async (uiPage) => {
+    const apiPage = Math.ceil((uiPage * MOVIES_PER_PAGE) / API_PAGE_SIZE);
+
+    const moviesData = searchQuery
+      ? await searchMovies(searchQuery, apiPage)
+      : await getPopularMovies(apiPage);
+
     const genresData = await getGenres();
 
     if (moviesData) {
@@ -50,8 +63,14 @@ export default function MovieList() {
       });
       setGenreMap(map);
     }
-  };
-
+  },
+  [searchQuery]
+  );
+  
+  useEffect(() => {
+    loadData(page);
+  }, [page, loadData]);
+  
   return (
     <Page>
       <SectionTitle>Popular Movies</SectionTitle>
@@ -65,7 +84,15 @@ export default function MovieList() {
       <Pagination
         currentPage={page}
         totalPages={totalPages}
-        onPageChange={setPage}
+        onPageChange={(p) => {
+          const next = new URLSearchParams(location.search);
+          next.set("page", String (p));
+          navigate({
+            pathname: location.pathname,
+            search: next.toString()
+          })
+          
+        }}
       />
     </Page>
   );

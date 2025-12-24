@@ -11,10 +11,10 @@ import {
   VideoIcon,
   Brand,
 } from "./styled";
-import { useHistory, useLocation, NavLink } from "react-router-dom";
+import {useLocation, NavLink, useNavigate } from "react-router-dom";
 
 const NavigationBar = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const params = new URLSearchParams(location.search);
@@ -32,7 +32,7 @@ const NavigationBar = () => {
       next.set("page", 1);
     }
 
-    history.push({ search: next.toString() });
+    navigate({ pathname: location.pathname, search: next.toString() });
   };
 
   return (

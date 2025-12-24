@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from "react-router-dom";
+import {Navigate, Route, Routes } from "react-router-dom";
 import NavigationBar from "./components/Navigation";
 import MovieList from "./features/MovieList";
 
@@ -6,13 +6,10 @@ export default function App() {
   return (
     <>
       <NavigationBar />
-      <Switch>
-        <Route path = "/movies">
-          <MovieList />
-        </Route>
-      <Redirect to = "/movies"/>
-      </Switch>
-     
+      <Routes>
+        <Route path="/movies" element={<MovieList />} />
+        <Route path="*" element={<Navigate to="/movies" replace />} />
+      </Routes>
     </>
   );
 }

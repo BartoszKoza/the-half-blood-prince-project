@@ -1,6 +1,8 @@
 import {
   TileWrapper,
+  PosterWrapper,
   Poster,
+  NoPoster,
   Description,
   NameYear,
   Title,
@@ -14,8 +16,9 @@ import {
 } from "./styled";
 
 import StarIcon from "../../images/star.svg";
+import noPoster from "../../images/no-poster.png";
 
-export default function Tile({ movie, genreMap }) {
+export default function Tile({ movie, genreMap = {} }) {
   const {
     title,
     release_date,
@@ -34,16 +37,26 @@ export default function Tile({ movie, genreMap }) {
         .slice(0, 3)
     : [];
 
+  const rating =
+    vote_average > 0
+      ? vote_average.toFixed(1).replace(".", ",")
+      : "—";
+
+  const votesText =
+    vote_count > 0 ? `${vote_count} votes` : "No votes";
+
   return (
     <TileWrapper>
-      <Poster
-        src={
-          poster_path
-            ? `https://image.tmdb.org/t/p/w500${poster_path}`
-            : "https://via.placeholder.com/292x434?text=No+Image"
-        }
-        alt={title}
-      />
+      <PosterWrapper>
+        {poster_path ? (
+          <Poster
+            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            alt={title}
+          />
+        ) : (
+          <NoPoster src={noPoster} alt="No poster available" />
+        )}
+      </PosterWrapper>
 
       <Description>
         <NameYear>
@@ -56,13 +69,13 @@ export default function Tile({ movie, genreMap }) {
             <Tag key={genre}>{genre}</Tag>
           ))}
         </Tags>
-      </Description>
 
-      <Rating>
-        <Star src={StarIcon} alt="star" />
-        <RatingValue>{vote_average.toFixed(1)}</RatingValue>
-        <Votes>({vote_count})</Votes>
-      </Rating>
+        <Rating>
+          <Star src={StarIcon} alt="star" />
+          <RatingValue>{rating}</RatingValue>
+          <Votes>{votesText}</Votes>
+        </Rating>
+      </Description>
     </TileWrapper>
   );
 }

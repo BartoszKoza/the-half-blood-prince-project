@@ -1,3 +1,7 @@
+import { useEffect, useState, useCallback } from "react";
+import Tile from "../../components/Tile";
+import { getPopularMovies, getGenres } from "../../core/api";
+import { Page, MoviesGrid, SectionTitle, Content } from "./styled";
 import { useCallback, useEffect, useState } from "react";
 import Tile from "../../components/Tile";
 import { getPopularMovies, getGenres, searchMovies } from "../../core/api";
@@ -25,6 +29,25 @@ export default function MovieList() {
   
 
   useEffect(() => {
+    const fetchGenres = async () => {
+      const genresData = await getGenres();
+
+      if (genresData?.genres) {
+        const map = {};
+        genresData.genres.forEach((g) => {
+          map[g.id] = g.name;
+        });
+        setGenreMap(map);
+      }
+    };
+
+    fetchGenres();
+  }, []);
+
+  const loadData = useCallback(async (uiPage) => {
+    const apiPage = Math.ceil((uiPage * MOVIES_PER_PAGE) / API_PAGE_SIZE);
+
+    const moviesData = await getPopularMovies(apiPage);
     setPage(urlPage);
   }, [urlPage]);
 
@@ -39,8 +62,7 @@ export default function MovieList() {
     const genresData = await getGenres();
 
     if (moviesData) {
-      const startIndex =
-        ((uiPage - 1) * MOVIES_PER_PAGE) % API_PAGE_SIZE;
+      const startIndex = ((uiPage - 1) * MOVIES_PER_PAGE) % API_PAGE_SIZE;
 
       const pageMovies = moviesData.results.slice(
         startIndex,
@@ -55,7 +77,29 @@ export default function MovieList() {
 
       setTotalPages(Math.min(uiTotalPages, 500));
     }
+  }, []);
 
+  useEffect(() => {
+    loadData(page);
+  }, [page, loadData]);
+
+  return (
+    <Page>
+      <Content>
+        <SectionTitle>Popular movies</SectionTitle>
+
+        <MoviesGrid>
+          {movies.map((movie) => (
+            <Tile key={movie.id} movie={movie} genreMap={genreMap} />
+          ))}
+        </MoviesGrid>
+
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
+      </Content>
     if (genresData?.genres) {
       const map = {};
       genresData.genres.forEach((g) => {

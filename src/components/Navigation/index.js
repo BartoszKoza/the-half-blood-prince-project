@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
   Navigation as Nav,
   Container,
@@ -12,16 +11,28 @@ import {
   VideoIcon,
   Brand,
 } from "./styled";
+import {useLocation, NavLink, useNavigate } from "react-router-dom";
 
-const NavigationBar = ({ query, setQuery, onSearch }) => {
-  const inputRef = useRef();
+const NavigationBar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleInputChange = (e) => {
-    if (setQuery) setQuery(e.target.value);
-  };
+  const params = new URLSearchParams(location.search);
+  const query = params.get("search") || "";
 
-  const handleSubmit = (e) => {
-    if (onSearch) onSearch(e);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const next = new URLSearchParams(location.search);
+
+    if (value) {
+      next.set("search", value);
+      next.set("page", 1);
+    } else {
+      next.delete("search");
+      next.set("page", 1);
+    }
+
+    navigate({ pathname: location.pathname, search: next.toString() });
   };
 
   return (
@@ -29,28 +40,30 @@ const NavigationBar = ({ query, setQuery, onSearch }) => {
       <Container>
         <Header>
           <Brand>
-          <VideoIcon/>
-          <Title>Movie Browser</Title>
+            <VideoIcon />
+            <Title>Movie Browser</Title>
           </Brand>
-          
+
           <Menu>
-            <MenuItem>MOVIES</MenuItem>
+            <MenuItem 
+              as={NavLink} 
+              to="/movies" 
+              exact activeClassName="active">
+              MOVIES
+            </MenuItem>
             <MenuItem>PEOPLE</MenuItem>
           </Menu>
         </Header>
 
-        <form onSubmit={handleSubmit} >
-          <SearchWrapper>
-            <SearchIcon/>
-            <SearchInput
-              ref={inputRef}
-              type="text"
-              placeholder="Search for movies..."
-              value={query || ""}
-              onChange={handleInputChange}
-            />
-          </SearchWrapper>
-        </form>
+        <SearchWrapper>
+          <SearchIcon />
+          <SearchInput
+            type="text"
+            placeholder="Search for movies..."
+            value={query || ""}
+            onChange={handleChange}
+          />
+        </SearchWrapper>
       </Container>
     </Nav>
   );

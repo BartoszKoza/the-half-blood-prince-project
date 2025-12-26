@@ -16,4 +16,13 @@ export const theme = {
     candlelight: "#FCD420",
     sceniceblue: "#0044CC",
   },
+  breakpoints: {
+    mobileMax: 767,
+    tabletMax: 1023,
+    desktopSmMax: 1279,
+  },
+  shadow: {
+    card: "0px 4px 12px rgba(186, 199, 213, 0.5)",
+    cardHover: "0px 8px 24px rgba(186, 199, 213, 0.8)",
+  },
 };

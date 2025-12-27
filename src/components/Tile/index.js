@@ -4,7 +4,7 @@ import {
   Poster,
   NoPoster,
   Description,
-  NameYear,
+  MovieTitle,
   Title,
   Year,
   Tags,
@@ -59,10 +59,10 @@ export default function Tile({ movie, genreMap = {} }) {
       </PosterWrapper>
 
       <Description>
-        <NameYear>
+        <MovieTitle>
           <Title>{title}</Title>
           <Year>{year}</Year>
-        </NameYear>
+        </MovieTitle>
 
         <Tags>
           {genres.map((genre) => (

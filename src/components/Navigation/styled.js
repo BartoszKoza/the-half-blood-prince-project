@@ -17,7 +17,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 16px;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     flex-direction: column;
     align-items: stretch;
   }
@@ -29,7 +29,7 @@ export const Header = styled.div`
   gap: 16px;
   width: 100%;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
@@ -40,7 +40,7 @@ export const Title = styled.h1`
   white-space: nowrap;
   font-size: 24px;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 14px;
     margin: 0;
   }
@@ -60,13 +60,13 @@ export const MenuItem = styled.li`
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
-   
+
   &.active {
     border-radius: 24px;
     border: 1px solid ${({ theme }) => theme.color.white};
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 12px;
     padding: 8px 12px;
     border-radius: 29px;
@@ -79,7 +79,8 @@ export const SearchInput = styled.input`
   border-radius: 33px;
   padding-left: 64px;
   font-size: 16px;
-  @media (max-width: 768px) {
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 13px;
     padding-left: 40px;
   }
@@ -90,7 +91,7 @@ export const SearchWrapper = styled.div`
   width: 432px;
   margin-left: auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     width: 100%;
     margin-left: 0;
   }
@@ -103,7 +104,8 @@ export const SearchIcon = styled(SearchIconSvg)`
   transform: translateY(-50%);
   width: 24px;
   height: 24px;
-  @media (max-width: 768px) {
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     width: 16px;
     height: 16px;
     left: 16px;
@@ -113,7 +115,8 @@ export const SearchIcon = styled(SearchIconSvg)`
 export const VideoIcon = styled(VideoLogoSvg)`
   width: 40px;
   height: 40px;
-  @media (max-width: 768px) {
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     width: 17px;
     height: 17px;
   }
@@ -124,7 +127,8 @@ export const Brand = styled.div`
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  @media (max-width: 768px) {
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     gap: 7px;
   }
 `;

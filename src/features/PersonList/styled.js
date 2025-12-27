@@ -20,15 +20,15 @@ export const PeopleGrid = styled.div`
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
 
-    @media (max-width: 1279px) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.desktopSmMax}px) {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    @media (max-width: 1023px) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.tabletMax}px) {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
         grid-template-columns: 1fr;
     }
 `;

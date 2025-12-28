@@ -41,7 +41,7 @@ const NavigationBar = () => {
         <Header>
           <Brand>
             <VideoIcon />
-            <Title>Movie Browser</Title>
+            <Title>Movies Browser</Title>
           </Brand>
 
           <Menu>

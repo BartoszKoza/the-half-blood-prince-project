@@ -11,7 +11,7 @@ import {
   VideoIcon,
   Brand,
 } from "./styled";
-import {useLocation, NavLink, useNavigate } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 
 const NavigationBar = () => {
   const navigate = useNavigate();
@@ -45,13 +45,12 @@ const NavigationBar = () => {
           </Brand>
 
           <Menu>
-            <MenuItem 
-              as={NavLink} 
-              to="/movies" 
-              exact activeClassName="active">
+            <MenuItem as={NavLink} to="/movies">
               MOVIES
             </MenuItem>
-            <MenuItem>PEOPLE</MenuItem>
+            <MenuItem as={NavLink} to="/people">
+              PEOPLE
+            </MenuItem>
           </Menu>
         </Header>
 

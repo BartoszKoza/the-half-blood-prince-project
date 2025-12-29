@@ -3,6 +3,7 @@ import NavigationBar from "./components/Navigation";
 import MovieList from "./features/MovieList";
 import PersonList from "./features/PersonList";
 import MovieDetails from "./features/MovieDetails";
+import PersonDetails from "./features/PersonDetails";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/movies/:id" element={<MovieDetails />} />
 
         <Route path="/people" element={<PersonList />} />
+        <Route path="/people/:id" element={<PersonDetails />} />
 
         <Route path="*" element={<Navigate to="/movies" replace />} />
       </Routes>

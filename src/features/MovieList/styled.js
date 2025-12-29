@@ -35,6 +35,7 @@ export const MoviesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+  max-width: 1368px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktopSmMax}px) {
     grid-template-columns: repeat(3, 1fr);
@@ -55,4 +56,18 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   display: block;
+`;
+
+export const NoResultsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    max-width: 668px;
+    width: 100%;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
+    max-width: 280px;
+    max-height: 300px;
+  }
 `;

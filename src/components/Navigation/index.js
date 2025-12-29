@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Navigation as Nav,
   Container,
@@ -29,6 +29,8 @@ const NavigationBar = () => {
   const params = new URLSearchParams(location.search);
   const query = params.get("search") || "";
 
+  const debounceRef = useRef(null);
+
   const [movieDetailsReturnTo, setMovieDetailsReturnTo] = useState(null);
   const [peopleDetailsReturnTo, setPeopleDetailsReturnTo] = useState(null);
   const [inputValue, setInputValue] = useState(query);
@@ -53,85 +55,101 @@ const NavigationBar = () => {
     const value = e.target.value;
     setInputValue(value);
 
-    const next = new URLSearchParams(location.search);
-
-    if (isMovieDetails) {
-      if (!value) {
-        navigate(movieDetailsReturnTo || "/movies");
-        return;
-      }
-      next.set("search", value);
-      next.set("page", "1");
-      navigate(
-        { pathname: "/movies", search: next.toString() },
-        { state: { moviesReturnTo: movieDetailsReturnTo || location.pathname } }
-      );
-      return;
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
     }
 
-    if (isPeopleDetails) {
-      if (!value) {
-        navigate(peopleDetailsReturnTo || "/people");
-        return;
-      }
+    debounceRef.current = setTimeout(() => {
+      const next = new URLSearchParams(location.search);
 
-      next.set("search", value);
-      next.set("page", "1");
-      navigate(
-        { pathname: "/people", search: next.toString() },
-        { state: { peopleReturnTo: peopleDetailsReturnTo || location.pathname } }
-      );
-      return;
-    }
+      if (isMovieDetails) {
+        if (!value) {
+          navigate(movieDetailsReturnTo || "/movies");
+          return;
+        }
 
-    if (isMovieList) {
-      if (!value && moviesReturnTo) {
-        navigate(moviesReturnTo);
-        return;
-      }
-
-      if (value) {
         next.set("search", value);
         next.set("page", "1");
-      } else {
-        next.delete("search");
-        next.set("page", "1");
-      }
 
-      navigate(
-        { pathname: "/movies", search: next.toString() },
-        moviesReturnTo ? { state: { moviesReturnTo } } : undefined
-      );
-      return;
-    }
-
-    if (isPeopleList) {
-      if (!value && peopleReturnTo) {
-        navigate(peopleReturnTo);
+        navigate(
+          { pathname: "/movies", search: next.toString() },
+          {
+            state: {
+              moviesReturnTo: movieDetailsReturnTo || location.pathname,
+            },
+          }
+        );
         return;
       }
 
-      if (value) {
+      if (isPeopleDetails) {
+        if (!value) {
+          navigate(peopleDetailsReturnTo || "/people");
+          return;
+        }
+
         next.set("search", value);
         next.set("page", "1");
-      } else {
-        next.delete("search");
-        next.set("page", "1");
+
+        navigate(
+          { pathname: "/people", search: next.toString() },
+          {
+            state: {
+              peopleReturnTo: peopleDetailsReturnTo || location.pathname,
+            },
+          }
+        );
+        return;
       }
 
-      navigate(
-        { pathname: "/people", search: next.toString() },
-        peopleReturnTo ? { state: { peopleReturnTo } } : undefined
-      );
-      return;
-    }
+      if (isMovieList) {
+        if (!value && moviesReturnTo) {
+          navigate(moviesReturnTo);
+          return;
+        }
+
+        if (value) {
+          next.set("search", value);
+          next.set("page", "1");
+        } else {
+          next.delete("search");
+          next.set("page", "1");
+        }
+
+        navigate(
+          { pathname: "/movies", search: next.toString() },
+          moviesReturnTo ? { state: { moviesReturnTo } } : undefined
+        );
+        return;
+      }
+
+      if (isPeopleList) {
+        if (!value && peopleReturnTo) {
+          navigate(peopleReturnTo);
+          return;
+        }
+
+        if (value) {
+          next.set("search", value);
+          next.set("page", "1");
+        } else {
+          next.delete("search");
+          next.set("page", "1");
+        }
+
+        navigate(
+          { pathname: "/people", search: next.toString() },
+          peopleReturnTo ? { state: { peopleReturnTo } } : undefined
+        );
+      }
+    }, 500);
   };
 
   return (
     <Nav>
       <Container>
         <Header>
-          <Brand onClick={goHome} role = "button" tabIndex={0}>
+          <Brand onClick={goHome} role="button" tabIndex={0}>
             <VideoIcon />
             <Title>Movies Browser</Title>
           </Brand>

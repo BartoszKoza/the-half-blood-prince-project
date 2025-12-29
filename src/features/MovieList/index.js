@@ -90,10 +90,8 @@ export default function MovieList() {
 
       setMovies(pageMovies);
 
-      const uiTotalPages = Math.ceil(results.length / MOVIES_PER_PAGE);
-      setTotalPages(Math.min(uiTotalPages, 500));
+      setTotalPages(Math.min(moviesData.total_pages || 1, 500));
 
-      setTotalPages(Math.min(uiTotalPages, 500));
       setLoading(false);
     },
     [searchQuery]

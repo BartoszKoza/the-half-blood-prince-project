@@ -70,15 +70,15 @@ export const Button = styled.button`
 
   cursor: pointer;
 
-  ${({ variant }) =>
-    variant === "secondary" &&
+  ${({ $variant }) =>
+    $variant === "secondary" &&
     css`
       background: ${({ theme }) => theme.color.mystic};
       color: ${({ theme }) => theme.color.woodsmoke};
     `}
 
-  ${({ variant }) =>
-    variant === "primary" &&
+  ${({ $variant }) =>
+    $variant === "primary" &&
     css`
       background: ${({ theme }) => theme.color.pattensblue};
       color: ${({ theme }) => theme.color.woodsmoke};
@@ -101,8 +101,8 @@ export const ArrowIcon = styled.img`
   width: 7px;
   height: 11px;
 
-  filter: ${({ active }) =>
-    active
+  filter: ${({ $active }) =>
+    $active
       ? "invert(21%) sepia(93%) saturate(2892%) hue-rotate(217deg) brightness(92%) contrast(101%)"
       : "invert(56%) sepia(7%) saturate(463%) hue-rotate(202deg) brightness(92%) contrast(88%)"};
 

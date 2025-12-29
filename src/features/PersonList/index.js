@@ -1,44 +1,71 @@
-import { useEffect, useState } from "react";
-import { getPopularPeople } from "../../core/api";
+import { useCallback, useEffect, useState } from "react";
+import { getPopularPeople, searchPeople } from "../../core/api";
 import PersonTile from "../../components/PersonTile";
 import Loading from "../../components/Loading";
 import { Pagination } from "../../components/Pagination";
+import { ReactComponent as NoResultsImage } from "../../images/no-result.svg";
 
-import {
-  Page,
-  PeopleGrid,
-  SectionTitle,
-  StyledLink,
-} from "./styled";
+import { Page, PeopleGrid, SectionTitle, StyledLink } from "./styled";
+import { useLocation, useNavigate } from "react-router-dom";
+import { NoResultsWrapper } from "../MovieList/styled";
 
 export default function PersonList() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const params = new URLSearchParams(location.search);
+  const searchQuery = params.get("search") || "";
+  const urlPage = Number(params.get("page")) || 1;
+
   const [people, setPeople] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(urlPage);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const loadPeople = async () => {
+  const [filteredTotal, setFilteredTotal] = useState(0);
+
+  const loadPage = useCallback(
+    async (uiPage) => {
       setLoading(true);
       setError(false);
 
-      const data = await getPopularPeople(page);
+      const data = searchQuery
+        ? await searchPeople(searchQuery, uiPage)
+        : await getPopularPeople(uiPage);
 
       if (!data) {
         setError(true);
         setLoading(false);
         return;
       }
+      let results = data.results || [];
+      if (searchQuery) {
+        const q = searchQuery.trim();
+        const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const re = new RegExp(`\\b${escaped}\\b`, "i");
 
-      setPeople(data.results || []);
-      setTotalPages(Math.min(data.total_pages || 1, 500));
+        results = results.filter((p) => re.test(p.name || ""));
+      }
+
+      setFilteredTotal(results.length);
+      setPeople(results);
+
+      const uiTotalPages = Math.ceil(results.length / 24) || 1;
+      setTotalPages(Math.min(uiTotalPages, 500));
+
       setLoading(false);
-    };
+    },
+    [searchQuery]
+  );
 
-    loadPeople();
-  }, [page]);
+  useEffect(() => {
+    loadPage(page);
+  }, [page, loadPage]);
 
+  useEffect(() => {
+    setPage(urlPage);
+  }, [urlPage]);
 
   if (loading) {
     return (
@@ -56,17 +83,34 @@ export default function PersonList() {
     );
   }
 
+  if (searchQuery && filteredTotal === 0) {
+    return (
+      <Page>
+        <SectionTitle>
+          Sorry, there are no results for "{searchQuery}"
+        </SectionTitle>
+        <NoResultsWrapper>
+          <NoResultsImage />
+        </NoResultsWrapper>
+      </Page>
+    );
+  }
+
   if (!people.length) {
     return (
       <Page>
-        <SectionTitle>No people found</SectionTitle>
+        <SectionTitle>
+          {searchQuery ? `No results for "${searchQuery}"` : "No people found"}
+        </SectionTitle>
       </Page>
     );
   }
 
   return (
     <Page>
-      <SectionTitle>Popular People</SectionTitle>
+      <SectionTitle>
+        {searchQuery ? `Search results for "${searchQuery}"` : "Popular People"}
+      </SectionTitle>
 
       <PeopleGrid>
         {people.map((person) => (
@@ -79,7 +123,15 @@ export default function PersonList() {
       <Pagination
         currentPage={page}
         totalPages={totalPages}
-        onPageChange={setPage}
+        onPageChange={(nextPage) => {
+          const nextParams = new URLSearchParams(location.search);
+          nextParams.set("page", String(nextPage));
+
+          navigate({
+            pathname: location.pathname,
+            search: nextParams.toString(),
+          });
+        }}
       />
     </Page>
   );

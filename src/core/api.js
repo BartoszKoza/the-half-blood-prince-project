@@ -33,6 +33,9 @@ export const getPopularPeople = (page = 1) =>
 export const getPersonDetails = (personId) =>
   fetchFromAPI(`/person/${personId}?`);
 
+export const getPersonMovieCredits = (personId) =>
+  fetchFromAPI(`/person/${personId}/movie_credits?`);
+
 //SEARCH
 
 export const searchMovies = (query, page = 1) =>

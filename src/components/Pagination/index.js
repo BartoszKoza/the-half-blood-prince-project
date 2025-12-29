@@ -29,32 +29,32 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     <Wrapper>
       <LeftGroup>
         <Button
-          variant={canGoPrev ? "primary" : "secondary"}
+          $variant={canGoPrev ? "primary" : "secondary"}
           disabled={!canGoPrev}
           onClick={() => goToPage(1)}
         >
           <MobileOnly>
-            <ArrowIcon src={leftArrow} active={canGoPrev} />
-            <ArrowIcon src={leftArrow} active={canGoPrev} />
+            <ArrowIcon src={leftArrow} $active={canGoPrev} />
+            <ArrowIcon src={leftArrow} $active={canGoPrev} />
           </MobileOnly>
 
           <DesktopOnly>
-            <ArrowIcon src={leftArrow} active={canGoPrev} />
+            <ArrowIcon src={leftArrow} $active={canGoPrev} />
             First
           </DesktopOnly>
         </Button>
 
         <Button
-          variant={canGoPrev ? "primary" : "secondary"}
+          $variant={canGoPrev ? "primary" : "secondary"}
           disabled={!canGoPrev}
           onClick={() => goToPage(currentPage - 1)}
         >
           <MobileOnly>
-            <ArrowIcon src={leftArrow} active={canGoPrev} />
+            <ArrowIcon src={leftArrow} $active={canGoPrev} />
           </MobileOnly>
 
           <DesktopOnly>
-            <ArrowIcon src={leftArrow} active={canGoPrev} />
+            <ArrowIcon src={leftArrow} $active={canGoPrev} />
             Previous
           </DesktopOnly>
         </Button>
@@ -69,33 +69,33 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
       <RightGroup>
         <Button
-          variant="primary"
+          $variant="primary"
           disabled={!canGoNext}
           onClick={() => goToPage(currentPage + 1)}
         >
           <MobileOnly>
-            <ArrowIcon src={rightArrow} active={canGoNext} />
+            <ArrowIcon src={rightArrow} $active={canGoNext} />
           </MobileOnly>
 
           <DesktopOnly>
             Next
-            <ArrowIcon src={rightArrow} active={canGoNext} />
+            <ArrowIcon src={rightArrow} $active={canGoNext} />
           </DesktopOnly>
         </Button>
 
         <Button
-          variant="primary"
+          $variant="primary"
           disabled={!canGoNext}
           onClick={() => goToPage(totalPages)}
         >
           <MobileOnly>
-            <ArrowIcon src={rightArrow} active={canGoNext} />
-            <ArrowIcon src={rightArrow} active={canGoNext} />
+            <ArrowIcon src={rightArrow} $active={canGoNext} />
+            <ArrowIcon src={rightArrow} $active={canGoNext} />
           </MobileOnly>
 
           <DesktopOnly>
             Last
-            <ArrowIcon src={rightArrow} active={canGoNext} />
+            <ArrowIcon src={rightArrow} $active={canGoNext} />
           </DesktopOnly>
         </Button>
       </RightGroup>

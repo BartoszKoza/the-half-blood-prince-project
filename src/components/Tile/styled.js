@@ -20,7 +20,8 @@ export const TileWrapper = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-    width: 288px;
+    max-width: 100%;
+    width: 100%;
     height: 201px;
     flex-direction: row;
     gap: 16px;

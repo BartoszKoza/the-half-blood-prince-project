@@ -51,8 +51,7 @@ export default function PersonList() {
       setFilteredTotal(results.length);
       setPeople(results);
 
-      const uiTotalPages = Math.ceil(results.length / 24) || 1;
-      setTotalPages(Math.min(uiTotalPages, 500));
+      setTotalPages(Math.min(data.total_pages || 1, 500));
 
       setLoading(false);
     },

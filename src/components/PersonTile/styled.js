@@ -1,39 +1,51 @@
 import styled from "styled-components";
 
 export const TileWrapper = styled.div`
-    background-color: ${({ theme }) => theme.color.white};
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(186, 199, 213, 0.5);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    transition: transform 0.3s ease;
-
-    &:hover {
-        transform: translateY(-4px);
-    }
+  width: 208px;
+  height: 339px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: ${({ theme }) => theme.color.white};
+  border-radius: 5px;
+  box-shadow: 0px 4px 12px rgba(186, 199, 213, 0.5);
+  align-items: center;
+  text-align: center;
 `;
 
 export const TileImage = styled.img`
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    border-radius: 8px;
-    object-fit: cover;
+  width: 176px;
+  height: 231px;
+  border-radius: 5px;
+  object-fit: cover;
 `;
 
-export const Placeholder = styled.div`
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    border-radius: 8px;
-    background-color: ${({ theme }) => theme.color.silver};
+export const NameWrapper = styled.div`
+  width: 176px;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
-export const TileName = styled.h3`
-    margin: 0;
-    font-size: 18px;
-    font-weight: 500;
-    text-align: center;
-    color: ${({ theme }) => theme.color.mineshaft};
+export const Name = styled.h3`
+  margin: 0;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.3;
+  color: ${({ theme }) => theme.color.woodsmoke};
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const Role = styled.p`
+  margin: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.color.waterloo};
 `;

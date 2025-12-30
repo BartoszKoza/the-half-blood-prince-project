@@ -5,7 +5,7 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 24px;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     padding: 16px;
   }
 `;

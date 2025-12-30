@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 export const Page = styled.div`
   display: flex;
   justify-content: center;
-  padding: 56px 16px;
+  padding: 56px 276px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
+    padding: 24px 16px;
+  }
 `;
 
 export const Content = styled.div`
@@ -28,6 +32,8 @@ export const SectionTitle = styled.h2`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
   }
 `;
 

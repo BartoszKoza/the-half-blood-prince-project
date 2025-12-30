@@ -6,6 +6,7 @@ export const theme = {
     pattensblue: "#D6E4FF",
     snuff: "#DDDDEE",
     waterloo: "#7E839A",
+    lynch: "#627489",
     stormgrey: "#74788B",
     mineshaft: "#333333",
     valentino: "#230B34",

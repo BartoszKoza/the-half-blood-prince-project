@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const TileWrapper = styled.div`
   width: 324px;
-  height: 650px;
+  height: 100%;
   background: ${({ theme }) => theme.color.white};
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.card};
@@ -63,6 +63,10 @@ export const MovieTitle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
+    gap: 4px;
+  }
 `;
 
 export const Title = styled.span`
@@ -74,6 +78,8 @@ export const Title = styled.span`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
     padding-top: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -84,11 +90,15 @@ export const Title = styled.span`
 
 export const Year = styled.span`
   font-size: 16px;
+  font-weight: 400;
   line-height: 1.5;
   color: ${({ theme }) => theme.color.waterloo};
+  padding-bottom: 8px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 13px;
+    font-weight: 400;
+    line-height: 1.3;
   }
 `;
 
@@ -110,6 +120,8 @@ export const Tag = styled.span`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     padding: 4px 8px;
     font-size: 10px;
+    font-weight: 400;
+    line-height: 1.1;
   }
 `;
 
@@ -121,7 +133,9 @@ export const Rating = styled.div`
   gap: 12px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-    padding-top: 8px;
+    margin-top: 8px;
+    padding-top: 0;
+    gap: 8px;
   }
 `;
 
@@ -143,15 +157,20 @@ export const RatingValue = styled.span`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
   }
 `;
 
 export const Votes = styled.span`
   font-size: 16px;
+  font-weight: 400;
   line-height: 1.5;
   color: ${({ theme }) => theme.color.waterloo};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 13px;
+    font-weight: 400;
+    line-height: 1.3;
   }
 `;

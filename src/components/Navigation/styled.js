@@ -36,12 +36,16 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.h1`
-  margin-right: 64px;
+  margin-right: 80px;
   white-space: nowrap;
   font-size: 24px;
+  font-weight: 500;
+  line-height: 40px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
     margin: 0;
   }
 `;
@@ -55,11 +59,13 @@ export const Menu = styled.ul`
 `;
 
 export const MenuItem = styled.li`
-  padding: 12px 24px;
+  padding: 16px 23px;
   color: ${({ theme }) => theme.color.white};
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
 
   &.active {
     border-radius: 24px;
@@ -68,20 +74,27 @@ export const MenuItem = styled.li`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
     padding: 8px 12px;
     border-radius: 29px;
   }
 `;
 
 export const SearchInput = styled.input`
-  width: 100%;
+  width: 432px;
   height: 48px;
   border-radius: 33px;
   padding-left: 64px;
   font-size: 16px;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
+  font-weight: 400;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.color.lynch};
+    @media
+    (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     font-size: 13px;
+    font-weight: 400;
+    line-height: 1.3;
     padding-left: 40px;
   }
 `;
@@ -104,7 +117,7 @@ export const SearchIcon = styled(SearchIconSvg)`
   transform: translateY(-50%);
   width: 24px;
   height: 24px;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
     width: 16px;
     height: 16px;

@@ -5,9 +5,10 @@ import {
   getPersonDetails,
   getPersonMovieCredits,
 } from "../../core/api";
-import {SectionTitle, StyledLink } from "../MovieList/styled";
+import { SectionTitle, StyledLink } from "../MovieList/styled";
 import Tile from "../../components/Tile";
 import Loading from "../../components/Loading";
+import ErrorPage from "../../components/Error";
 import {
   Bio,
   CreditsGrid,
@@ -90,17 +91,12 @@ export default function PersonDetails() {
   }
 
   if (error || !person) {
-    return (
-        <Page>
-            <SectionTitle>Something went wrong</SectionTitle>
-        </Page>
-    )
+    return <ErrorPage />;
   }
 
   const profileSrc = person.profile_path
     ? `${IMAGE_BASE_URL}/w500${person.profile_path}`
     : FALLBACK_IMG;
-    
 
   return (
     <Page>
@@ -125,9 +121,10 @@ export default function PersonDetails() {
         <SectionTitle>Movies - cast ({credits.cast.length})</SectionTitle>
         <CreditsGrid>
           {topCast.map((movie) => (
-            <StyledLink 
-                key={`cast-${movie.credit_id}`} 
-                to={`/movies/${movie.id}`}>
+            <StyledLink
+              key={`cast-${movie.credit_id}`}
+              to={`/movies/${movie.id}`}
+            >
               <Tile movie={movie} genreMap={genreMap} />
             </StyledLink>
           ))}
@@ -137,9 +134,10 @@ export default function PersonDetails() {
         <SectionTitle>Movies - crew ({credits.crew?.length || 0})</SectionTitle>
         <CreditsGrid>
           {topCrew.map((movie) => (
-            <StyledLink 
-            key={`crew-${movie.credit_id}`} 
-            to={`/movies/${movie.id}`}>
+            <StyledLink
+              key={`crew-${movie.credit_id}`}
+              to={`/movies/${movie.id}`}
+            >
               <Tile movie={movie} genreMap={genreMap} />
             </StyledLink>
           ))}

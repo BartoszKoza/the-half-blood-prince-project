@@ -16,6 +16,7 @@ export const theme = {
     blackpearl: "#03121F",
     candlelight: "#FCD420",
     sceniceblue: "#0044CC",
+    smalt: "#0037a1"
   },
   breakpoints: {
     mobileMax: 767,

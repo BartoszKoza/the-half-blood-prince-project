@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import PersonTile from "../../components/PersonTile";
 import noPoster from "../../images/no-poster.png";
 import star from "../../images/star.svg";
-
+import ErrorPage from "../../components/Error";
 import {
   MovieDetailsWrapper,
   Top,
@@ -31,11 +31,6 @@ import {
   Description,
   SectionTitle,
   PeopleRow,
-  ErrorContainer,
-  ErrorIcon,
-  ErrorTitle,
-  ErrorMessage,
-  RetryButton,
   RatingRow,
   RatingValue,
   RatingVotes,
@@ -87,22 +82,11 @@ const MovieDetails = () => {
   }, [id]);
 
   if (loading) {
-    return <Loading text="Loading movie details..." />;
+    return <Loading text="Loading..." />;
   }
 
   if (error) {
-    return (
-      <ErrorContainer>
-        <ErrorIcon>⚠️</ErrorIcon>
-        <ErrorTitle>Something went wrong</ErrorTitle>
-        <ErrorMessage>
-          Unable to load movie details. Please try again.
-        </ErrorMessage>
-        <RetryButton onClick={() => window.location.reload()}>
-          Try again
-        </RetryButton>
-      </ErrorContainer>
-    );
+    return <ErrorPage />;
   }
 
   if (!movie) return null;

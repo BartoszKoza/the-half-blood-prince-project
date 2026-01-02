@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Tile from "../../components/Tile";
 import Loading from "../../components/Loading";
+import ErrorPage from "../../components/Error";
 import { Pagination } from "../../components/Pagination";
 import { getPopularMovies, getGenres, searchMovies } from "../../core/api";
 import {
@@ -30,7 +31,6 @@ export default function MovieList() {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
   const [filteredTotal, setFilteredTotal] = useState(0);
 
   useEffect(() => {
@@ -116,13 +116,7 @@ export default function MovieList() {
   }
 
   if (error) {
-    return (
-      <Page>
-        <Content>
-          <SectionTitle>Something went wrong</SectionTitle>
-        </Content>
-      </Page>
-    );
+    return <ErrorPage />;
   }
 
   if (!loading && searchQuery && filteredTotal === 0) {
@@ -145,7 +139,7 @@ export default function MovieList() {
       <Content>
         <SectionTitle>
           {searchQuery
-            ? `Search results for "${searchQuery}"`
+            ? `Search results for "${searchQuery} (${filteredTotal})"`
             : "Popular Movies"}
         </SectionTitle>
 

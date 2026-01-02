@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import { getPopularPeople, searchPeople } from "../../core/api";
 import PersonTile from "../../components/PersonTile";
 import Loading from "../../components/Loading";
+import ErrorPage from "../../components/Error";
 import { Pagination } from "../../components/Pagination";
 import { ReactComponent as NoResultsImage } from "../../images/no-result.svg";
-
 import { Page, PeopleGrid, SectionTitle, StyledLink } from "./styled";
 import { useLocation, useNavigate } from "react-router-dom";
 import { NoResultsWrapper } from "../MovieList/styled";
@@ -75,11 +75,7 @@ export default function PersonList() {
   }
 
   if (error) {
-    return (
-      <Page>
-        <SectionTitle>Something went wrong 😢</SectionTitle>
-      </Page>
-    );
+    return <ErrorPage />;
   }
 
   if (searchQuery && filteredTotal === 0) {
@@ -108,7 +104,9 @@ export default function PersonList() {
   return (
     <Page>
       <SectionTitle>
-        {searchQuery ? `Search results for "${searchQuery}"` : "Popular People"}
+        {searchQuery
+          ? `Search results for "${searchQuery} (${filteredTotal})"`
+          : "Popular People"}
       </SectionTitle>
 
       <PeopleGrid>

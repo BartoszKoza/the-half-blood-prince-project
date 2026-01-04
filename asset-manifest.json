@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.js": "/the-half-blood-prince-project/static/js/main.987358ff.js",
+    "main.js": "/the-half-blood-prince-project/static/js/main.4b46a649.js",
     "static/js/453.85cc329f.chunk.js": "/the-half-blood-prince-project/static/js/453.85cc329f.chunk.js",
     "static/media/no-result.svg": "/the-half-blood-prince-project/static/media/no-result.d286a671797f1244d0ba26eeaa04cf6f.svg",
     "static/media/star.svg": "/the-half-blood-prince-project/static/media/star.eb3b44f9d958da1dcf46386c6bbf4843.svg",
+    "static/media/warning.svg": "/the-half-blood-prince-project/static/media/warning.a514e9c64a76d5cf149bdd7443857605.svg",
     "index.html": "/the-half-blood-prince-project/index.html",
     "static/media/right-arrow.svg": "/the-half-blood-prince-project/static/media/right-arrow.bf1d725bf0c4ea67d73790fd002aa7c1.svg",
     "static/media/Video.svg": "/the-half-blood-prince-project/static/media/Video.64519bacc48e8f0f2a39675e55643d9b.svg",
     "static/media/left-arrow.svg": "/the-half-blood-prince-project/static/media/left-arrow.b3fc0998f1916e9c55bebde8eb17a09e.svg",
     "static/media/search-icon.svg": "/the-half-blood-prince-project/static/media/search-icon.67b8139a58176c2c50a2b1297a869e2b.svg",
     "static/media/spinner.svg": "/the-half-blood-prince-project/static/media/spinner.c5f29646f52eed97faa98a9f6f43ce08.svg",
-    "main.987358ff.js.map": "/the-half-blood-prince-project/static/js/main.987358ff.js.map",
+    "main.4b46a649.js.map": "/the-half-blood-prince-project/static/js/main.4b46a649.js.map",
     "453.85cc329f.chunk.js.map": "/the-half-blood-prince-project/static/js/453.85cc329f.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.987358ff.js"
+    "static/js/main.4b46a649.js"
   ]
 }

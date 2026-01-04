@@ -5,9 +5,14 @@ import Loading from "../../components/Loading";
 import ErrorPage from "../../components/Error";
 import { Pagination } from "../../components/Pagination";
 import { ReactComponent as NoResultsImage } from "../../images/no-result.svg";
-import { Page, PeopleGrid, SectionTitle, StyledLink } from "./styled";
+import { PeopleGrid, StyledLink } from "./styled";
 import { useLocation, useNavigate } from "react-router-dom";
-import { NoResultsWrapper } from "../MovieList/styled";
+import {
+  Page,
+  Content,
+  NoResultsWrapper,
+  SectionTitle,
+} from "../MovieList/styled";
 
 export default function PersonList() {
   const location = useLocation();
@@ -81,12 +86,14 @@ export default function PersonList() {
   if (searchQuery && filteredTotal === 0) {
     return (
       <Page>
-        <SectionTitle>
-          Sorry, there are no results for "{searchQuery}"
-        </SectionTitle>
-        <NoResultsWrapper>
-          <NoResultsImage />
-        </NoResultsWrapper>
+        <Content>
+          <SectionTitle>
+            Sorry, there are no results for "{searchQuery}"
+          </SectionTitle>
+          <NoResultsWrapper>
+            <NoResultsImage />
+          </NoResultsWrapper>
+        </Content>
       </Page>
     );
   }
@@ -103,33 +110,35 @@ export default function PersonList() {
 
   return (
     <Page>
-      <SectionTitle>
-        {searchQuery
-          ? `Search results for "${searchQuery} (${filteredTotal})"`
-          : "Popular People"}
-      </SectionTitle>
+      <Content>
+        <SectionTitle>
+          {searchQuery
+            ? `Search results for "${searchQuery} (${filteredTotal})"`
+            : "Popular People"}
+        </SectionTitle>
 
-      <PeopleGrid>
-        {people.map((person) => (
-          <StyledLink key={person.id} to={`/people/${person.id}`}>
-            <PersonTile person={person} />
-          </StyledLink>
-        ))}
-      </PeopleGrid>
+        <PeopleGrid>
+          {people.map((person) => (
+            <StyledLink key={person.id} to={`/people/${person.id}`}>
+              <PersonTile person={person} />
+            </StyledLink>
+          ))}
+        </PeopleGrid>
 
-      <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={(nextPage) => {
-          const nextParams = new URLSearchParams(location.search);
-          nextParams.set("page", String(nextPage));
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={(nextPage) => {
+            const nextParams = new URLSearchParams(location.search);
+            nextParams.set("page", String(nextPage));
 
-          navigate({
-            pathname: location.pathname,
-            search: nextParams.toString(),
-          });
-        }}
-      />
+            navigate({
+              pathname: location.pathname,
+              search: nextParams.toString(),
+            });
+          }}
+        />
+      </Content>
     </Page>
   );
 }

@@ -103,7 +103,7 @@ export const SearchInput = styled.input`
     outline: none;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        font-size: 17px;
+        font-size: 13px;
         font-weight: 400;
         line-height: 1.3;
         padding-left: 40px;

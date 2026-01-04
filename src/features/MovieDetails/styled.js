@@ -122,7 +122,7 @@ export const Title = styled.h1`
     margin: 0 0 24px 0;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        font-size: 21px;
+        font-size: 24px;
         margin-bottom: 8px;
     }
 `;
@@ -172,7 +172,7 @@ export const RatingText = styled.span`
 
 export const RatingMax = styled.span`
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.2;
     margin-left: 5px;
     vertical-align: baseline;
@@ -191,7 +191,7 @@ export const Votes = styled.span`
     color: ${({ theme }) => theme.color.white};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        font-size: 12px;
+        font-size: 10px;
         vertical-align: text-bottom;
         margin-left: 4px;
     }
@@ -203,7 +203,7 @@ export const Content = styled.div`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
     padding: 0 16px;
     padding-bottom: 336px;
 
@@ -220,7 +220,7 @@ export const MovieTile = styled.div`
     display: grid;
     grid-template-columns: 312px 1fr;
     gap: 40px;
-    margin-bottom: 64px;
+    margin-bottom: 44px;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
         grid-template-columns: 114px 1fr;
@@ -267,7 +267,7 @@ export const MovieTitle = styled.h2`
     color: ${({ theme }) => theme.color.black};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        font-size: 21px;
+        font-size: 16px;
         padding-bottom: 0;
     }
 `;
@@ -344,7 +344,7 @@ export const Tag = styled.div`
     color: ${({ theme }) => theme.color.woodsmoke};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        font-size: 11px;
+        font-size: 10px;
         padding: 4px 8px;
         height: 19px;
     }
@@ -374,7 +374,7 @@ export const MobileDescription = styled.p`
         display: block;
         grid-row: 2;
         grid-column: 1 / -1;
-        font-size: 16px;
+        font-size: 14px;
     }
 `;
 
@@ -396,7 +396,7 @@ export const PeopleRow = styled.div`
     gap: 16px;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
     }
 `;
@@ -461,7 +461,7 @@ export const RatingValue = styled.span`
     color: ${({ theme }) => theme.color.black};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        font-size: 17px;
+        font-size: 13px;
         line-height: 1.3;
         font-weight: 400;
     }
@@ -474,7 +474,7 @@ export const RatingVotes = styled.span`
     color: ${({ theme }) => theme.color.black};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        font-size: 17px;
+        font-size: 13px;
         color: ${({ theme }) => theme.color.waterloo};
         line-height: 1.3;
     }

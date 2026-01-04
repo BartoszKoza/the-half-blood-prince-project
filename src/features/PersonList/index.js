@@ -1,13 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
-import { getPopularPeople, searchPeople } from "../../core/api";
+import { Page, PeopleGrid, SectionTitle, StyledLink } from "./styled";
+import { useLocation, useNavigate } from "react-router-dom";
 import PersonTile from "../../components/PersonTile";
 import Loading from "../../components/Loading";
 import ErrorPage from "../../components/Error";
 import { Pagination } from "../../components/Pagination";
-import { ReactComponent as NoResultsImage } from "../../images/no-result.svg";
-import { Page, PeopleGrid, SectionTitle, StyledLink } from "./styled";
-import { useLocation, useNavigate } from "react-router-dom";
-import { NoResultsWrapper } from "../MovieList/styled";
+import { usePeople } from "./usePersonList";
+import NoResults from "../../components/NoResults";
 
 export default function PersonList() {
   const location = useLocation();
@@ -15,56 +13,12 @@ export default function PersonList() {
 
   const params = new URLSearchParams(location.search);
   const searchQuery = params.get("search") || "";
-  const urlPage = Number(params.get("page")) || 1;
+  const page = Number(params.get("page")) || 1;
 
-  const [people, setPeople] = useState([]);
-  const [page, setPage] = useState(urlPage);
-  const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const [filteredTotal, setFilteredTotal] = useState(0);
-
-  const loadPage = useCallback(
-    async (uiPage) => {
-      setLoading(true);
-      setError(false);
-
-      const data = searchQuery
-        ? await searchPeople(searchQuery, uiPage)
-        : await getPopularPeople(uiPage);
-
-      if (!data) {
-        setError(true);
-        setLoading(false);
-        return;
-      }
-      let results = data.results || [];
-      if (searchQuery) {
-        const q = searchQuery.trim();
-        const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        const re = new RegExp(`\\b${escaped}\\b`, "i");
-
-        results = results.filter((p) => re.test(p.name || ""));
-      }
-
-      setFilteredTotal(results.length);
-      setPeople(results);
-
-      setTotalPages(Math.min(data.total_pages || 1, 500));
-
-      setLoading(false);
-    },
-    [searchQuery]
-  );
-
-  useEffect(() => {
-    loadPage(page);
-  }, [page, loadPage]);
-
-  useEffect(() => {
-    setPage(urlPage);
-  }, [urlPage]);
+  const { people, totalPages, filteredTotal, loading, error } = usePeople({
+    searchQuery,
+    page,
+  });
 
   if (loading) {
     return (
@@ -81,22 +35,7 @@ export default function PersonList() {
   if (searchQuery && filteredTotal === 0) {
     return (
       <Page>
-        <SectionTitle>
-          Sorry, there are no results for "{searchQuery}"
-        </SectionTitle>
-        <NoResultsWrapper>
-          <NoResultsImage />
-        </NoResultsWrapper>
-      </Page>
-    );
-  }
-
-  if (!people.length) {
-    return (
-      <Page>
-        <SectionTitle>
-          {searchQuery ? `No results for "${searchQuery}"` : "No people found"}
-        </SectionTitle>
+        <NoResults query={searchQuery} />
       </Page>
     );
   }

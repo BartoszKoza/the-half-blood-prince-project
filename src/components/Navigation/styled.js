@@ -113,7 +113,8 @@ export const SearchInput = styled.input`
 
 export const SearchWrapper = styled.div`
     position: relative;
-    width: 600px;
+    width: 100%;
+    max-width: 432px;
     margin-left: auto;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {

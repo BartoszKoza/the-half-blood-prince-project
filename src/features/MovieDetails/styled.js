@@ -111,7 +111,6 @@ export const MainInfo = styled.div`
         transform: none;
         width: 100%;
         padding: 16px;
-        padding-bottom: 24px;
     }
 `;
 
@@ -179,8 +178,18 @@ export const RatingMax = styled.span`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
         font-size: 12px;
-        display: none;
+        display: inline;
         vertical-align: text-bottom;
+    }
+`;
+
+export const TileRatingMax = styled.span`
+    font-weight: 400;
+    font-size: 14px;
+    margin-left: 2px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
+        display: none;
     }
 `;
 
@@ -191,9 +200,10 @@ export const Votes = styled.span`
     color: ${({ theme }) => theme.color.white};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobileMax}px) {
-        font-size: 10px;
-        vertical-align: text-bottom;
-        margin-left: 4px;
+        font-size: 12px;
+        font-weight: 400;
+        align-self: flex-end;
+        margin-left: 8px;
     }
 `;
 

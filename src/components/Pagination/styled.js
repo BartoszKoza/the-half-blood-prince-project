@@ -24,8 +24,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 525px;
-  height: 36px;
+  width: 100%;
+  max-width: 525px;
   gap: 24px;
   margin: 48px auto;
 

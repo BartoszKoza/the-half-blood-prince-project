@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { getPopularPeople, searchPeople } from "../../core/api";
 
-export const usePeople = ({ searchQuery, page }) => {
+export const usePersonList = ({ searchQuery, page }) => {
   const [people, setPeople] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [filteredTotal, setFilteredTotal] = useState(0);

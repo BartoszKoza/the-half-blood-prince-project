@@ -1,253 +1,172 @@
+import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
-import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import ErrorPage from "../../components/Error";
 import PersonTile from "../../components/PersonTile";
 import noPoster from "../../images/no-poster.png";
 import star from "../../images/star.svg";
-import ErrorPage from "../../components/Error";
+import { useMovieDetails } from "./useMovieDetails";
 import {
-    MovieDetailsWrapper,
-    Top,
-    BG,
-    PosterBig,
-    Overlay,
-    MainInfo,
-    Title,
-    RatingWrapper,
-    Rating,
-    Star as StarIcon,
-    RatingText,
-    Votes,
-    Content,
-    MovieTile,
-    Poster,
-    MovieData,
-    MovieTitle,
-    MovieYear,
-    ProductionWrapper,
-    ProductionRelease,
-    Label,
-    Value,
-    Tags,
-    Tag,
-    DesktopDescription,
-    MobileDescription,
-    SectionTitle,
-    PeopleRow,
-    RatingRow,
-    RatingValue,
-    RatingVotes,
-    RatingMax,
-    TileStar,
-    TileRatingMax,
+  MovieDetailsWrapper,
+  Top,
+  BG,
+  PosterBig,
+  Overlay,
+  MainInfo,
+  Title,
+  RatingWrapper,
+  Rating,
+  Star as StarIcon,
+  RatingText,
+  Votes,
+  Content,
+  MovieTile,
+  Poster,
+  MovieData,
+  MovieTitle,
+  MovieYear,
+  ProductionWrapper,
+  ProductionRelease,
+  Label,
+  Value,
+  Tags,
+  Tag,
+  DesktopDescription,
+  MobileDescription,
+  SectionTitle,
+  PeopleRow,
+  RatingRow,
+  RatingValue,
+  RatingVotes,
+  RatingMax,
+  TileStar,
+  TileRatingMax,
+  PersonLink
 } from "./styled";
 
-const API_KEY = "64ac986c586016d0646be000556db945";
-const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
-const MovieDetails = () => {
-    const { id } = useParams();
-    const [movie, setMovie] = useState(null);
-    const [cast, setCast] = useState([]);
-    const [crew, setCrew] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+export default function MovieDetails() {
+  const { id } = useParams();
+  const { movie, cast, crew, loading, error } = useMovieDetails(id);
 
-    useEffect(() => {
-        const fetchMovieData = async () => {
-            setLoading(true);
-            setError(null);
+  if (loading) return <Loading />;
+  if (error) return <ErrorPage />;
+  if (!movie) return null;
 
-            try {
-                const [movieResponse, creditsResponse] = await Promise.all([
-                    fetch(
-                        `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`
-                    ),
-                    fetch(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`),
-                ]);
+  const posterUrl = movie.poster_path
+    ? `${IMAGE_BASE_URL}/w500${movie.poster_path}`
+    : noPoster;
 
-                if (!movieResponse.ok || !creditsResponse.ok) {
-                    throw new Error("Failed to fetch movie data");
-                }
+  const backdropUrl = movie.backdrop_path
+    ? `${IMAGE_BASE_URL}/w1280${movie.backdrop_path}`
+    : null;
 
-                const movieData = await movieResponse.json();
-                const creditsData = await creditsResponse.json();
+  const rating = movie.vote_average.toFixed(1).replace(".", ",");
 
-                setMovie(movieData);
-                setCast(creditsData.cast || []);
-                setCrew(creditsData.crew || []);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+  return (
+    <MovieDetailsWrapper>
+      <Top>
+        <BG />
+        {backdropUrl && <PosterBig src={backdropUrl} alt={movie.title} />}
+        <Overlay />
+        <MainInfo>
+          <Title>{movie.title}</Title>
+          <RatingWrapper>
+            <Rating>
+              <StarIcon src={star} alt="star" />
+              <RatingText>
+                {rating}
+                <RatingMax>/ 10</RatingMax>
+              </RatingText>
+            </Rating>
+            <Votes>{movie.vote_count} votes</Votes>
+          </RatingWrapper>
+        </MainInfo>
+      </Top>
 
-        fetchMovieData();
-    }, [id]);
+      <Content>
+        <MovieTile>
+          <Poster src={posterUrl} alt={movie.title} />
 
-    if (loading) {
-        return <Loading text="Loading..." />;
-    }
+          <MovieData>
+            <MovieTitle>{movie.title}</MovieTitle>
+            <MovieYear>{movie.release_date?.slice(0, 4)}</MovieYear>
 
-    if (error) {
-        return <ErrorPage />;
-    }
+            <ProductionWrapper>
+              <ProductionRelease>
+                <Label>Production:</Label>
+                <Value>
+                  {movie.production_countries?.map((c) => c.name).join(", ")}
+                </Value>
+              </ProductionRelease>
 
-    if (!movie) return null;
+              <ProductionRelease>
+                <Label>Release date:</Label>
+                <Value>
+                  {movie.release_date &&
+                    new Date(movie.release_date).toLocaleDateString("pl-PL")}
+                </Value>
+              </ProductionRelease>
+            </ProductionWrapper>
 
-    const posterUrl = movie.poster_path
-        ? `${IMAGE_BASE_URL}/w500${movie.poster_path}`
-        : noPoster;
+            <Tags>
+              {movie.genres?.map((g) => (
+                <Tag key={g.id}>{g.name}</Tag>
+              ))}
+            </Tags>
 
-    const backdropUrl = movie.backdrop_path
-        ? `${IMAGE_BASE_URL}/w1280${movie.backdrop_path}`
-        : null;
+            <RatingRow>
+              <TileStar src={star} alt="star" />
+              <RatingValue>
+                {rating}
+                <TileRatingMax>/ 10</TileRatingMax>
+              </RatingValue>
+              <RatingVotes>{movie.vote_count} votes</RatingVotes>
+            </RatingRow>
 
-    return (
-        <MovieDetailsWrapper>
-            <Top>
-                <BG />
-                {backdropUrl && (
-                    <PosterBig src={backdropUrl} alt={movie.title} />
-                )}
-                <Overlay />
-                <MainInfo>
-                    <Title>{movie.title}</Title>
-                    <RatingWrapper>
-                        <Rating>
-                            <StarIcon src={star} alt="star" />
-                            <RatingText>
-                                {movie.vote_average
-                                    .toFixed(1)
-                                    .replace(".", ",")}
-                                <RatingMax>/ 10</RatingMax>
-                            </RatingText>
-                        </Rating>
-                        <Votes>{movie.vote_count} votes</Votes>
-                    </RatingWrapper>
-                </MainInfo>
-            </Top>
+            {movie.overview && (
+              <DesktopDescription>{movie.overview}</DesktopDescription>
+            )}
+          </MovieData>
 
-            <Content>
-                <MovieTile>
-                    <Poster src={posterUrl} alt={movie.title} />
+          {movie.overview && (
+            <MobileDescription>{movie.overview}</MobileDescription>
+          )}
+        </MovieTile>
 
-                    <MovieData>
-                        <MovieTitle>{movie.title}</MovieTitle>
-                        <MovieYear>{movie.release_date?.slice(0, 4)}</MovieYear>
+        {cast.length > 0 && (
+          <>
+            <SectionTitle>Cast</SectionTitle>
+            <PeopleRow>
+              {cast.slice(0, 12).map((p) => (
+                <PersonLink key={p.id} to={`/people/${p.id}`}>
+                  <PersonTile person={p} role={p.character} />
+                </PersonLink>
+              ))}
+            </PeopleRow>
+          </>
+        )}
 
-                        <ProductionWrapper>
-                            <ProductionRelease>
-                                <Label>Production:</Label>
-                                <Value>
-                                    {movie.production_countries
-                                        ?.map((c) => c.name)
-                                        .join(", ")}
-                                </Value>
-                            </ProductionRelease>
-
-                            <ProductionRelease>
-                                <Label>Release date:</Label>
-                                <Value>
-                                    {movie.release_date &&
-                                        new Date(
-                                            movie.release_date
-                                        ).toLocaleDateString("pl-PL")}
-                                </Value>
-                            </ProductionRelease>
-                        </ProductionWrapper>
-
-                        {movie.genres && (
-                            <Tags>
-                                {movie.genres.map((g) => (
-                                    <Tag key={g.id}>{g.name}</Tag>
-                                ))}
-                            </Tags>
-                        )}
-
-                        <RatingRow>
-                            <TileStar src={star} alt="star" />
-                            <RatingValue>
-                                {movie.vote_average
-                                    .toFixed(1)
-                                    .replace(".", ",")}
-                                <TileRatingMax>/ 10</TileRatingMax>
-                            </RatingValue>
-                            <RatingVotes>{movie.vote_count} votes</RatingVotes>
-                        </RatingRow>
-
-                        {movie.overview && (
-                            <DesktopDescription>
-                                {movie.overview}
-                            </DesktopDescription>
-                        )}
-                    </MovieData>
-
-                    {movie.overview && (
-                        <MobileDescription>{movie.overview}</MobileDescription>
-                    )}
-                </MovieTile>
-
-                {cast.length > 0 && (
-                    <>
-                        <SectionTitle>Cast</SectionTitle>
-                        <PeopleRow>
-                            {cast.slice(0, 12).map((person) => (
-                                <Link
-                                    key={person.id}
-                                    to={`/people/${person.id}`}
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "inherit",
-                                    }}
-                                >
-                                    <PersonTile
-                                        person={person}
-                                        role={person.character}
-                                    />
-                                </Link>
-                            ))}
-                        </PeopleRow>
-                    </>
-                )}
-
-                {crew.length > 0 && (
-                    <>
-                        <SectionTitle>Crew</SectionTitle>
-                        <PeopleRow>
-                            {crew
-                                .filter((person) =>
-                                    [
-                                        "Director",
-                                        "Producer",
-                                        "Writer",
-                                        "Screenplay",
-                                    ].includes(person.job)
-                                )
-                                .slice(0, 12)
-                                .map((person) => (
-                                    <Link
-                                        key={person.id}
-                                        to={`/people/${person.id}`}
-                                        style={{
-                                            textDecoration: "none",
-                                            color: "inherit",
-                                        }}
-                                    >
-                                        <PersonTile
-                                            person={person}
-                                            role={person.job}
-                                        />
-                                    </Link>
-                                ))}
-                        </PeopleRow>
-                    </>
-                )}
-            </Content>
-        </MovieDetailsWrapper>
-    );
-};
-
-export default MovieDetails;
+        {crew.length > 0 && (
+          <>
+            <SectionTitle>Crew</SectionTitle>
+            <PeopleRow>
+              {crew
+                .filter((p) =>
+                  ["Director", "Producer", "Writer", "Screenplay"].includes(
+                    p.job
+                  )
+                )
+                .slice(0, 12)
+                .map((p) => (
+                  <PersonLink key={p.id} to={`/people/${p.id}`}>
+                    <PersonTile person={p} role={p.job} />
+                  </PersonLink>
+                ))}
+            </PeopleRow>
+          </>
+        )}
+      </Content>
+    </MovieDetailsWrapper>
+  );
+}

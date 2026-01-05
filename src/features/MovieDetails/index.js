@@ -39,6 +39,7 @@ import {
     RatingVotes,
     RatingMax,
     TileStar,
+    TileRatingMax,
 } from "./styled";
 
 const API_KEY = "64ac986c586016d0646be000556db945";
@@ -172,7 +173,7 @@ const MovieDetails = () => {
                                 {movie.vote_average
                                     .toFixed(1)
                                     .replace(".", ",")}
-                                <RatingMax>/ 10</RatingMax>
+                                <TileRatingMax>/ 10</TileRatingMax>
                             </RatingValue>
                             <RatingVotes>{movie.vote_count} votes</RatingVotes>
                         </RatingRow>

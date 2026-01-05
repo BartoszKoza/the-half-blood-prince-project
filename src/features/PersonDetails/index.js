@@ -7,7 +7,9 @@ import ErrorPage from "../../components/Error";
 import {
   Bio,
   CreditsGrid,
+  DesktopOnly,
   Metaline,
+  MobileOnly,
   Name,
   Page,
   PersonInfo,
@@ -22,14 +24,7 @@ const FALLBACK_IMG = "https://via.placeholder.com/300x450?text=No+Image";
 export default function PersonDetails() {
   const { id } = useParams();
 
-  const {
-    person,
-    cast,
-    crew,
-    genreMap,
-    loading,
-    error,
-  } = usePersonDetails(id);
+  const { person, cast, crew, genreMap, loading, error } = usePersonDetails(id);
 
   if (loading) {
     return (
@@ -56,7 +51,11 @@ export default function PersonDetails() {
 
           {person.birthday && (
             <Metaline>
-              <strong>Date of birth:</strong> {person.birthday}
+              <strong>
+                <DesktopOnly>Date of birth:</DesktopOnly>
+                <MobileOnly>Birth:</MobileOnly>
+              </strong>{" "}
+              {person.birthday}
             </Metaline>
           )}
 
@@ -65,9 +64,8 @@ export default function PersonDetails() {
               <strong>Place of birth:</strong> {person.place_of_birth}
             </Metaline>
           )}
-
-          {person.biography && <Bio>{person.biography}</Bio>}
         </PersonInfo>
+        {person.biography && <Bio>{person.biography}</Bio>}
       </TopSection>
 
       <Section>

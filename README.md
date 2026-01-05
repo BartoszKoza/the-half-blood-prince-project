@@ -6,6 +6,10 @@ https://bartoszkoza.github.io/the-half-blood-prince-project/
 Movie Browser is a React application for browsing movies and people using data from **The Movie Database (TMDB)** API.  
 The app allows users to explore popular titles, search for movies and people, and view detailed information including ratings, descriptions, cast, and crew.
 
+![Movie Browser Demo](./screenshots/demo.gif)
+
+*Demo: navigating from movie list to movie details and actor profile.*
+
 ---
 
 ## ✨ Features
@@ -22,8 +26,14 @@ The app allows users to explore popular titles, search for movies and people, an
   - date and place of birth
   - movie credits (cast & crew)
 - Pagination synced with URL query parameters
-- Fully **responsive UI**
+- Fully responsive UI
 - Loading and error states handled gracefully
+
+### Search preview
+
+![Search results](./screenshots/search-movie.png)
+
+*Movie search with live results*
 
 ---
 
@@ -69,55 +79,66 @@ src/
 ## 🧭 Routing
 
 - /movies – list of popular movies
-
 - /movies/:id – movie details view
-
 - /people – list of popular people
-
 - /people/:id – person details view
 
 The default route redirects to /movies.
 
 
-# Getting Started with Create React App
+## 🚀 Getting Started
+### Requirements
+- Node.js (LTS recommended)
+- npm
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-## DEMO
-https://bartoszkoza.github.io/the-half-blood-prince-project/
-## Available Scripts
+### Installation
 
-In the project directory, you can run:
+```
+npm install
+```
 
-### `npm start`
+### Development
+```
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Production Build
+```
+npm run build
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Deployment (GitHub Pages)
+```
+npm run deploy
+```
 
-### `npm test`
+## 🔧 API Configuration
+The application uses The Movie Database (TMDB) API.
+API calls are centralized in src/core/api.js.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+⚠️ Note:
+The API key is currently stored directly in the source code.
+A recommended improvement would be moving it to environment variables (.env).
 
-### `npm run build`
+## 👥 Authors
+Group project created as a final course project:
+- Bartosz
+- Kamil 
+- Sandra
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔮 Possible Improvements
+- Move TMDB API key to environment variables
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Improve API URL handling
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Add caching for genres
 
-### `npm run eject`
+- Add unit and integration tests
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Improve accessibility (ARIA labels, keyboard navigation)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Add skeleton loaders instead of spinners
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📄 License
+Educational project.
 

@@ -1,5 +1,6 @@
-import { Page, PeopleGrid, SectionTitle, StyledLink } from "./styled";
-import { useLocation, useNavigate } from "react-router-dom";
+import { usePeople } from "./usePersonList";
+
+
 import PersonTile from "../../components/PersonTile";
 import Loading from "../../components/Loading";
 import ErrorPage from "../../components/Error";

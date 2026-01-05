@@ -1,6 +1,4 @@
-import { usePeople } from "./usePersonList";
-
-
+import { usePersonList } from "./usePersonList";
 import PersonTile from "../../components/PersonTile";
 import Loading from "../../components/Loading";
 import ErrorPage from "../../components/Error";
@@ -23,7 +21,7 @@ export default function PersonList() {
   const searchQuery = params.get("search") || "";
   const page = Number(params.get("page")) || 1;
 
-  const { people, totalPages, filteredTotal, loading, error } = usePeople({
+  const { people, totalPages, filteredTotal, loading, error } = usePersonList({
     searchQuery,
     page,
   });
